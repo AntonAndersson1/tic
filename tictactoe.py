@@ -1,12 +1,12 @@
 board = [' ' for x in range(10)]
 
-def insertLetter(letter,pos):
+def sattinbokstav(letter,pos):
     board[pos] = letter
 
-def spaceIsFree(pos):
+def platsenarfri(pos):
     return board[pos] == ' '
 
-def printBoard(board):
+def printabradde(board):
     print('   |   |   ')
     print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
     print('   |   |   ')
@@ -19,13 +19,13 @@ def printBoard(board):
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('   |   |   ')
 
-def isBoardFull(board):
+def braddearfullt(board):
     if board.count(' ') > 1:
         return False
     else:
         return True
 
-def IsWinner(b,l):
+def arvinnare(b,l):
     return ((b[1] == l and b[2] == l and b[3] == l) or
     (b[4] == l and b[5] == l and b[6] == l) or
     (b[7] == l and b[8] == l and b[9] == l) or
@@ -35,16 +35,16 @@ def IsWinner(b,l):
     (b[1] == l and b[5] == l and b[9] == l) or
     (b[3] == l and b[5] == l and b[7] == l))
 
-def playerMove():
+def spelareflytta():
     run = True
     while run:
         move = input("please select a position to enter the X between 1 to 9\n")
         try:
             move = int(move)
             if move > 0 and move < 10:
-                if spaceIsFree(move):
+                if platsenarfri(move):
                     run = False
-                    insertLetter('X' , move)
+                    sattinbokstav('X' , move)
                 else:
                     print('Sorry, this space is occupied')
             else:
@@ -53,7 +53,7 @@ def playerMove():
         except:
             print('Please type a number')
 
-def computerMove():
+def datorflytta():
     possibleMoves = [x for x , letter in enumerate(board) if letter == ' ' and x != 0  ]
     move = 0
 
@@ -61,7 +61,7 @@ def computerMove():
         for i in possibleMoves:
             boardcopy = board[:]
             boardcopy[i] = let
-            if IsWinner(boardcopy, let):
+            if arvinnare(boardcopy, let):
                 move = i
                 return move
 
@@ -71,7 +71,7 @@ def computerMove():
             cornersOpen.append(i)
 
     if len(cornersOpen) > 0:
-        move = selectRandom(cornersOpen)
+        move = valjerandom(cornersOpen)
         return move
 
     if 5 in possibleMoves:
@@ -84,10 +84,10 @@ def computerMove():
             edgesOpen.append(i)
 
     if len(edgesOpen) > 0:
-        move = selectRandom(edgesOpen)
+        move = valjerandom(edgesOpen)
         return move
 
-def selectRandom(li):
+def valjerandom(li):
     import random
     ln = len(li)
     r = random.randrange(0,ln)
@@ -95,24 +95,24 @@ def selectRandom(li):
 
 def main():
     print("Welcome to the game!")
-    printBoard(board)
+    printabradde(board)
 
-    while not(isBoardFull(board)):
-        if not(IsWinner(board , 'O')):
-            playerMove()
-            printBoard(board)
+    while not(braddearfullt(board)):
+        if not(arvinnare(board , 'O')):
+            spelareflytta()
+            printabradde(board)
         else:
             print("sorry you loose!")
             break
 
-        if not(IsWinner(board , 'X')):
-            move = computerMove()
+        if not(arvinnare(board , 'X')):
+            move = datorflytta()
             if move == 0:
                 print(" ")
             else:
-                insertLetter('O' , move)
+                sattinbokstav('O' , move)
                 print('computer placed an o on position' , move , ':')
-                printBoard(board)
+                printabradde(board)
         else:
             print("you win!")
             break
@@ -120,7 +120,7 @@ def main():
 
 
 
-    if isBoardFull(board):
+    if braddearfullt(board):
         print("Tie game")
 
 while True:
