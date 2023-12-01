@@ -38,7 +38,7 @@ def arvinnare(b,l):
 def spelareflytta():
     starta = True
     while starta:
-        flytta = input("Snälla välj en postion att placera x på inom 1 till 9\n")
+        flytta = input("Snalla valj en postion att placera x pa inom 1 till 9\n")
         try:
             flytta = int(flytta)
             if flytta > 0 and flytta < 10:
@@ -46,12 +46,12 @@ def spelareflytta():
                     starta = False
                     sattinbokstav('X' , flytta)
                 else:
-                    print('Förlåt denna platsen är tagen')
+                    print('Forlat denna platsen är tagen')
             else:
-                print('Snälla skriv ett nummer mellan 1 till 9')
+                print('Snalla skriv ett nummer mellan 1 till 9')
 
         except:
-            print('Snälla skriv ett nummer')
+            print('Snalla skriv ett nummer')
 
 def datorflytta():
     möjligflyttning = [x for x , bokstav in enumerate(bradde) if bokstav == ' ' and x != 0  ]
@@ -94,7 +94,7 @@ def valjerandom(li):
     return li[r]
 
 def main():
-    print("Välkommen till spelet")
+    print("Valkommen till spelet")
     printabradde(bradde)
 
     while not(braddearfullt(bradde)):
@@ -102,7 +102,7 @@ def main():
             spelareflytta()
             printabradde(bradde)
         else:
-            print("Du förlorade")
+            print("Du forlorade")
             break
 
         if not(arvinnare(bradde , 'X')):
@@ -111,7 +111,7 @@ def main():
                 print(" ")
             else:
                 sattinbokstav('O' , flytta)
-                print('Datorn placerade ett o på postionen' , flytta , ':')
+                print('Datorn placerade ett o pa postionen' , flytta , ':')
                 printabradde(bradde)
         else:
             print("Du van")
@@ -124,7 +124,7 @@ def main():
         print("Det blev lika")
 
 while True:
-    x = input("Vill du spela? klicka y för ja eller n för nej (y/n)\n")
+    x = input("Vill du spela? klicka y for ja eller n for nej (y/n)\n")
     if x.lower() == 'y':
         bradde = [' ' for x in range(10)]
         print('--------------------')
