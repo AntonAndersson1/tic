@@ -1,26 +1,26 @@
-board = [' ' for x in range(10)]
+bradde = [' ' for x in range(10)]
 
-def sattinbokstav(letter,pos):
-    board[pos] = letter
+def sattinbokstav(bokstav,pos):
+    bradde[pos] = bokstav
 
 def platsenarfri(pos):
-    return board[pos] == ' '
+    return bradde[pos] == ' '
 
-def printabradde(board):
+def printabradde(bradde):
     print('   |   |   ')
-    print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
+    print(' ' + bradde[1] + ' | ' + bradde[2] + ' | ' + bradde[3])
     print('   |   |   ')
     print('------------')
     print('   |   |   ')
-    print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
+    print(' ' + bradde[4] + ' | ' + bradde[5] + ' | ' + bradde[6])
     print('   |   |   ')
     print('------------')
     print('   |   |   ')
-    print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
+    print(' ' + bradde[7] + ' | ' + bradde[8] + ' | ' + bradde[9])
     print('   |   |   ')
 
-def braddearfullt(board):
-    if board.count(' ') > 1:
+def braddearfullt(bradde):
+    if bradde.count(' ') > 1:
         return False
     else:
         return True
@@ -36,15 +36,15 @@ def arvinnare(b,l):
     (b[3] == l and b[5] == l and b[7] == l))
 
 def spelareflytta():
-    run = True
-    while run:
-        move = input("Snälla välj en postion att placera x på inom 1 till 9\n")
+    starta = True
+    while starta:
+        flytta = input("Snälla välj en postion att placera x på inom 1 till 9\n")
         try:
-            move = int(move)
-            if move > 0 and move < 10:
-                if platsenarfri(move):
-                    run = False
-                    sattinbokstav('X' , move)
+            flytta = int(flytta)
+            if flytta > 0 and flytta < 10:
+                if platsenarfri(flytta):
+                    starta = False
+                    sattinbokstav('X' , flytta)
                 else:
                     print('Förlåt denna platsen är tagen')
             else:
@@ -54,38 +54,38 @@ def spelareflytta():
             print('Snälla skriv ett nummer')
 
 def datorflytta():
-    possibleMoves = [x for x , letter in enumerate(board) if letter == ' ' and x != 0  ]
-    move = 0
+    möjligflyttning = [x for x , bokstav in enumerate(bradde) if bokstav == ' ' and x != 0  ]
+    flytta = 0
 
     for let in ['O' , 'X']:
-        for i in possibleMoves:
-            boardcopy = board[:]
-            boardcopy[i] = let
-            if arvinnare(boardcopy, let):
-                move = i
-                return move
+        for i in möjligflyttning:
+            braddekopia = bradde[:]
+            braddekopia[i] = let
+            if arvinnare(braddekopia, let):
+                flytta = i
+                return flytta
 
-    cornersOpen = []
-    for i in possibleMoves:
+    hörnöppna = []
+    for i in möjligflyttning:
         if i in [1 , 3 , 7 , 9]:
-            cornersOpen.append(i)
+            hörnöppna.append(i)
 
-    if len(cornersOpen) > 0:
-        move = valjerandom(cornersOpen)
-        return move
+    if len(hörnöppna) > 0:
+        flytta = valjerandom(hörnöppna)
+        return flytta
 
-    if 5 in possibleMoves:
-        move = 5
-        return move
+    if 5 in möjligflyttning:
+        flytta = 5
+        return flytta
 
-    edgesOpen = []
-    for i in possibleMoves:
+    kanteröppna = []
+    for i in möjligflyttning:
         if i in [2,4,6,8]:
-            edgesOpen.append(i)
+            kanteröppna.append(i)
 
-    if len(edgesOpen) > 0:
-        move = valjerandom(edgesOpen)
-        return move
+    if len(kanteröppna) > 0:
+        flytta = valjerandom(kanteröppna)
+        return flytta
 
 def valjerandom(li):
     import random
@@ -95,24 +95,24 @@ def valjerandom(li):
 
 def main():
     print("Välkommen till spelet")
-    printabradde(board)
+    printabradde(bradde)
 
-    while not(braddearfullt(board)):
-        if not(arvinnare(board , 'O')):
+    while not(braddearfullt(bradde)):
+        if not(arvinnare(bradde , 'O')):
             spelareflytta()
-            printabradde(board)
+            printabradde(bradde)
         else:
             print("Du förlorade")
             break
 
-        if not(arvinnare(board , 'X')):
-            move = datorflytta()
-            if move == 0:
+        if not(arvinnare(bradde , 'X')):
+            flytta = datorflytta()
+            if flytta == 0:
                 print(" ")
             else:
-                sattinbokstav('O' , move)
-                print('Datorn placerade ett o på postionen' , move , ':')
-                printabradde(board)
+                sattinbokstav('O' , flytta)
+                print('Datorn placerade ett o på postionen' , flytta , ':')
+                printabradde(bradde)
         else:
             print("Du van")
             break
@@ -120,13 +120,13 @@ def main():
 
 
 
-    if braddearfullt(board):
+    if braddearfullt(bradde):
         print("Det blev lika")
 
 while True:
     x = input("Vill du spela? klicka y för ja eller n för nej (y/n)\n")
     if x.lower() == 'y':
-        board = [' ' for x in range(10)]
+        bradde = [' ' for x in range(10)]
         print('--------------------')
         main()
     else:
